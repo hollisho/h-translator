@@ -1,0 +1,33 @@
+{
+  "name": "hollisho/h-translator",
+  "type": "library",
+  "description": "h-translator",
+  "keywords": [
+    "translator",
+    "datetime",
+    "lang",
+    "locale"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Hollis Ho",
+      "email": "he_wenzhi@126.com",
+      "homepage": "https://www.1024plus.com",
+      "role": "Developer"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "^8.5",
+    "phpstan/phpstan": "^1.9"
+  },
+  "require": {
+    "php": ">=7.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "hollisho\\htraslator\\": "src",
+      "hollisho\\htraslator\\tests\\": "tests"
+    }
+  }
+}
