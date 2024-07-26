@@ -6,7 +6,8 @@
     "translator",
     "datetime",
     "lang",
-    "locale"
+    "i18n",
+    "localize"
   ],
   "license": "MIT",
   "authors": [
@@ -22,12 +23,15 @@
     "phpstan/phpstan": "^1.9"
   },
   "require": {
-    "php": ">=7.2"
+    "php": ">=7.2",
+    "hollisho/object-builder": "^0.4",
+    "fightbulc/moment": "^1.34",
+    "hollisho/php-helpers": "^1.0"
   },
   "autoload": {
     "psr-4": {
-      "hollisho\\htraslator\\": "src",
-      "hollisho\\htraslator\\tests\\": "tests"
+      "hollisho\\htranslator\\": "src",
+      "hollisho\\htranslator\\tests\\": "tests"
     }
   }
 }
