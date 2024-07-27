@@ -7,7 +7,9 @@ use hollisho\objectbuilder\Exceptions\UnknownPropertyException;
 
 /**
  * @author Hollis
- * @desc Translator Attribute Extend
+ * @desc
+ * Trait LocaleConfigSetTrait
+ * @package hollisho\htranslator\Traits
  */
 trait LocaleConfigSetTrait
 {

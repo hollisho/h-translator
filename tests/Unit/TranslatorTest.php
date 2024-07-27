@@ -16,6 +16,8 @@ class TranslatorTest extends TestCase
 
     public function testTranslator()
     {
+        $translator = new Translator();
+
         $this->assertTrue(true);
     }
 

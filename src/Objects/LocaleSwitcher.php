@@ -30,7 +30,6 @@ class LocaleSwitcher extends HObject implements LocaleAwareInterface
     {
         $config = ArrayHelper::getValue($params, 'config', []);
         $locale = ArrayHelper::getValue($params, 'locale', '');
-        /** @var LocaleConfig config */
         $this->config = ObjectBuilder::build(LocaleConfig::class, $config);
         $this->setLocale($locale ?: $this->getDefaultLocale());
     }
@@ -51,25 +50,6 @@ class LocaleSwitcher extends HObject implements LocaleAwareInterface
     public function getDefaultLocale(): string
     {
         return $this->config->getAttribute('default_locale');
-    }
-
-    /**
-     * Switch to a new locale, execute a callback, then switch back to the original.
-     * @param string $locale
-     * @param callable(string $locale):T $callback
-     * @return mixed
-     * @throws UnknownPropertyException
-     */
-    public function runWithLocale(string $locale, callable $callback)
-    {
-        $original = $this->getLocale();
-        $this->setLocale($locale);
-
-        try {
-            return $callback($locale);
-        } finally {
-            $this->setLocale($original);
-        }
     }
 
     /**

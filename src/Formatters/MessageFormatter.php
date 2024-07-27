@@ -3,7 +3,14 @@ namespace hollisho\htranslator\Formatters;
 
 use hollisho\htranslator\Contracts\FormatterInterface;
 use hollisho\htranslator\Contracts\TranslatorInterface;
+use hollisho\htranslator\Translator;
 
+/**
+ * @author Hollis
+ * @desc
+ * Class MessageFormatter
+ * @package hollisho\htranslator\Formatters
+ */
 class MessageFormatter implements FormatterInterface
 {
 
@@ -14,7 +21,7 @@ class MessageFormatter implements FormatterInterface
      */
     public function __construct(?TranslatorInterface $translator = null)
     {
-        $this->translator = $translator ?? new IdentityTranslator();
+        $this->translator = $translator ?? new Translator();
     }
 
 

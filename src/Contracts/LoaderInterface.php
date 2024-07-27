@@ -5,6 +5,12 @@ namespace hollisho\htranslator\Contracts;
 use hollisho\htranslator\Exceptions\InvalidResourceException;
 use hollisho\htranslator\Exceptions\NotFoundResourceException;
 
+/**
+ * @author Hollis
+ * @desc
+ * Interface LoaderInterface
+ * @package hollisho\htranslator\Contracts
+ */
 interface LoaderInterface
 {
     /**

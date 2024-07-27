@@ -3,6 +3,7 @@
 namespace hollisho\htranslator;
 
 use hollisho\htranslator\Contracts\FormatterInterface;
+use hollisho\htranslator\Contracts\LocaleAwareInterface;
 use hollisho\htranslator\Contracts\TranslatorInterface;
 use hollisho\htranslator\Formatters\MessageFormatter;
 use hollisho\htranslator\Objects\LocaleSwitcher;
@@ -11,7 +12,7 @@ use hollisho\objectbuilder\Exceptions\UnknownPropertyException;
 use InvalidArgumentException;
 
 
-class Translator implements TranslatorInterface
+class Translator implements TranslatorInterface, LocaleAwareInterface
 {
 
     /**
@@ -23,27 +24,36 @@ class Translator implements TranslatorInterface
 
 
     /**
-     * @param string $locale
+     * @param string|null $locale
      * @param FormatterInterface|null $formatter
      * @throws BuilderException
+     * @throws UnknownPropertyException
      */
-    public function __construct(string $locale, ?FormatterInterface $formatter = null)
+    public function __construct(?string $locale, ?FormatterInterface $formatter = null)
     {
         $this->switcher = LocaleSwitcher::build();
 
-        $this->setLocale($locale);
+        if ($locale) {
+            $this->setLocale($locale);
+        }
 
         if (null === $formatter) {
-            $formatter = new MessageFormatter();
+            $formatter = new MessageFormatter($this);
         }
 
         $this->formatter = $formatter;
     }
 
     /**
-     * {@inheritdoc}
+     * @param string|null $id
+     * @param array $parameters
+     * @param string|null $domain
+     * @param string|null $locale
+     * @return string
+     * @author Hollis
+     * @desc
      */
-    public function trans(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null)
+    public function trans(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
     {
         if (null === $id || '' === $id) {
             return '';
@@ -53,7 +63,6 @@ class Translator implements TranslatorInterface
             $domain = 'messages';
         }
 
-        $catalogue = $this->getCatalogue($locale);
         $locale = $catalogue->getLocale();
         while (!$catalogue->defines($id, $domain)) {
             if ($cat = $catalogue->getFallbackCatalogue()) {
@@ -80,7 +89,10 @@ class Translator implements TranslatorInterface
     }
 
     /**
+     * @param string $locale
      * @throws UnknownPropertyException
+     * @author Hollis
+     * @desc
      */
     public function setLocale(string $locale): void
     {
@@ -88,9 +100,22 @@ class Translator implements TranslatorInterface
         $this->switcher->setLocale($locale);
     }
 
+    /**
+     * @return string
+     * @author Hollis
+     * @desc
+     */
     public function getLocale(): string
     {
         return $this->switcher->getLocale();
+    }
+
+    /**
+     * @throws UnknownPropertyException
+     */
+    public function reset(): void
+    {
+        $this->switcher->reset();
     }
 }
 

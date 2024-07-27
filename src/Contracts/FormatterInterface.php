@@ -2,6 +2,12 @@
 
 namespace hollisho\htranslator\Contracts;
 
+/**
+ * @author Hollis
+ * @desc
+ * Interface FormatterInterface
+ * @package hollisho\htranslator\Contracts
+ */
 interface FormatterInterface
 {
     /**

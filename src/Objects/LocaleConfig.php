@@ -5,6 +5,12 @@ namespace hollisho\htranslator\Objects;
 
 use hollisho\objectbuilder\HObject;
 
+/**
+ * @author Hollis
+ * @desc
+ * Class LocaleConfig
+ * @package hollisho\htranslator\Objects
+ */
 class LocaleConfig extends HObject
 {
     /**
