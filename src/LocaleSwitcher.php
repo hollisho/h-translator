@@ -1,23 +1,19 @@
 <?php
 
-namespace hollisho\htranslator\Objects;
+namespace hollisho\htranslator;
 
 use hollisho\helpers\ArrayHelper;
 use hollisho\helpers\InvalidArgumentException;
-use hollisho\htranslator\Contracts\LocaleAwareInterface;
 use hollisho\htranslator\Traits\LocaleConfigSetTrait;
 use hollisho\objectbuilder\Exceptions\BuilderException;
 use hollisho\objectbuilder\Exceptions\UnknownPropertyException;
-use hollisho\objectbuilder\HObject;
-use hollisho\objectbuilder\ObjectBuilder;
 
 /**
  * @author Hollis Ho
  * Class LocaleSwitcher
  * @package hollisho\htranslator
- * @property $config LocaleConfig
  */
-class LocaleSwitcher extends HObject implements LocaleAwareInterface
+class LocaleSwitcher implements LocaleAwareInterface
 {
     use LocaleConfigSetTrait;
 
@@ -30,7 +26,9 @@ class LocaleSwitcher extends HObject implements LocaleAwareInterface
     {
         $config = ArrayHelper::getValue($params, 'config', []);
         $locale = ArrayHelper::getValue($params, 'locale', '');
-        $this->config = ObjectBuilder::build(LocaleConfig::class, $config);
+        /** @var LocaleConfig $localeConfig */
+        $localeConfig = LocaleConfig::build($config);
+        $this->config = $localeConfig;
         $this->setLocale($locale ?: $this->getDefaultLocale());
     }
 

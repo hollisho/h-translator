@@ -1,6 +1,6 @@
 <?php
 
-namespace hollisho\htranslator\Contracts;
+namespace hollisho\htranslator\Loaders;
 
 use hollisho\htranslator\Exceptions\InvalidResourceException;
 use hollisho\htranslator\Exceptions\NotFoundResourceException;
@@ -19,5 +19,5 @@ interface LoaderInterface
      * @throws NotFoundResourceException when the resource cannot be found
      * @throws InvalidResourceException  when the resource cannot be loaded
      */
-    public function load(mixed $resource, string $locale, string $domain = 'messages'): MessageCatalogue;
+    public function load($resource, string $locale, string $domain = 'messages');
 }

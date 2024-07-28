@@ -26,7 +26,8 @@
     "php": ">=7.2",
     "hollisho/object-builder": "^0.4",
     "fightbulc/moment": "^1.34",
-    "hollisho/php-helpers": "^1.0"
+    "hollisho/php-helpers": "^1.0",
+    "symfony/translation": "^5.4"
   },
   "autoload": {
     "psr-4": {

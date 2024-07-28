@@ -1,6 +1,6 @@
 <?php
 
-namespace hollisho\htranslator\Objects;
+namespace hollisho\htranslator;
 
 
 use hollisho\objectbuilder\HObject;
@@ -21,7 +21,7 @@ class LocaleConfig extends HObject
 
     /**
      * @desc 当前语言
-     * @var
+     * @var string
      */
     protected $locale;
 

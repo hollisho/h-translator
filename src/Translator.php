@@ -2,18 +2,16 @@
 
 namespace hollisho\htranslator;
 
-use hollisho\htranslator\Contracts\FormatterInterface;
-use hollisho\htranslator\Contracts\LocaleAwareInterface;
-use hollisho\htranslator\Contracts\TranslatorInterface;
+use hollisho\htranslator\Formatters\FormatterInterface;
 use hollisho\htranslator\Formatters\MessageFormatter;
-use hollisho\htranslator\Objects\LocaleSwitcher;
-use hollisho\objectbuilder\Exceptions\BuilderException;
 use hollisho\objectbuilder\Exceptions\UnknownPropertyException;
 use InvalidArgumentException;
 
 
 class Translator implements TranslatorInterface, LocaleAwareInterface
 {
+
+    protected $catalogues = [];
 
     /**
      * @var LocaleSwitcher
@@ -26,12 +24,11 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
     /**
      * @param string|null $locale
      * @param FormatterInterface|null $formatter
-     * @throws BuilderException
      * @throws UnknownPropertyException
      */
-    public function __construct(?string $locale, ?FormatterInterface $formatter = null)
+    public function __construct(string $locale = null, ?FormatterInterface $formatter = null)
     {
-        $this->switcher = LocaleSwitcher::build();
+        $this->switcher = new LocaleSwitcher();
 
         if ($locale) {
             $this->setLocale($locale);
@@ -116,6 +113,30 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
     public function reset(): void
     {
         $this->switcher->reset();
+    }
+
+
+    public function getCatalogue(?string $locale = null)
+    {
+        if (!$locale) {
+            $locale = $this->getLocale();
+        } else {
+            $this->assertValidLocale($locale);
+        }
+
+        if (!isset($this->catalogues[$locale])) {
+            $this->loadCatalogue($locale);
+        }
+
+        return $this->catalogues[$locale];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCatalogues(): array
+    {
+        return array_values($this->catalogues);
     }
 }
 

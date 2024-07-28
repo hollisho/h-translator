@@ -2,7 +2,7 @@
 
 namespace hollisho\htranslator\Traits;
 
-use hollisho\htranslator\Objects\LocaleConfig;
+use hollisho\htranslator\LocaleConfig;
 use hollisho\objectbuilder\Exceptions\UnknownPropertyException;
 
 /**

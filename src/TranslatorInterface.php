@@ -1,6 +1,6 @@
 <?php
 
-namespace hollisho\htranslator\Contracts;
+namespace hollisho\htranslator;
 
 /**
  * @author Hollis

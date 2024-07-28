@@ -1,9 +1,8 @@
 <?php
 namespace hollisho\htranslator\Formatters;
 
-use hollisho\htranslator\Contracts\FormatterInterface;
-use hollisho\htranslator\Contracts\TranslatorInterface;
 use hollisho\htranslator\Translator;
+use hollisho\htranslator\TranslatorInterface;
 
 /**
  * @author Hollis
