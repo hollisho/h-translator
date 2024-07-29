@@ -1,7 +1,6 @@
 <?php
 namespace hollisho\htranslator\Formatters;
 
-use hollisho\htranslator\Translator;
 use hollisho\htranslator\TranslatorInterface;
 
 /**
@@ -18,9 +17,9 @@ class MessageFormatter implements FormatterInterface
     /**
      * @param TranslatorInterface|null $translator
      */
-    public function __construct(?TranslatorInterface $translator = null)
+    public function __construct(?TranslatorInterface $translator)
     {
-        $this->translator = $translator ?? new Translator();
+        $this->translator = $translator;
     }
 
 

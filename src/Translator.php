@@ -14,9 +14,9 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
     protected $catalogues = [];
 
     /**
-     * @var LocaleSwitcher
+     * @var LocaleManager
      */
-    private $switcher;
+    private $localeManager;
 
     private $formatter;
 
@@ -28,7 +28,7 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
      */
     public function __construct(string $locale = null, ?FormatterInterface $formatter = null)
     {
-        $this->switcher = new LocaleSwitcher();
+        $this->switcher = new LocaleManager();
 
         if ($locale) {
             $this->setLocale($locale);

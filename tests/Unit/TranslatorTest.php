@@ -8,7 +8,7 @@ class TranslatorTest extends TestCase
 
     public function testLocale()
     {
-        $locale = new LocaleSwitcher();
+        $locale = new LocaleManager();
         $this->assertTrue($locale->getLocale() === $locale->getDefaultLocale());
     }
 

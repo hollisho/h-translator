@@ -2,73 +2,138 @@
 
 namespace hollisho\htranslator\Catelogues;
 
-use hollisho\htranslator\Contracts\ResourceInterface;
+use hollisho\htranslator\Exceptions\LogicException;
+use hollisho\htranslator\Resources\ResourceInterface;
 
+/**
+ * @author Hollis
+ * @desc
+ * Class MessageCatalogue
+ * @package hollisho\htranslator\Catelogues
+ */
 class MessageCatalogue implements MessageCatalogueInterface
 {
+    /**
+     * @var array
+     */
+    private $messages = [];
 
-    public function getLocale()
+    /**
+     * @var array
+     */
+    private $resources = [];
+
+    /**
+     * @var string
+     */
+    private $locale;
+
+    public function getLocale(): string
     {
-        // TODO: Implement getLocale() method.
+        return $this->locale;
     }
 
-    public function getDomains()
+    /**
+     * @return array
+     * @author Hollis
+     * @desc 遍历获取所有domain
+     */
+    public function getDomains(): array
     {
-        // TODO: Implement getDomains() method.
+        $domains = [];
+
+        foreach ($this->messages as $domain => $messages) {
+            $domains[$domain] = $domain;
+        }
+
+        return array_values($domains);
     }
 
-    public function all(?string $domain = null)
+    public function __construct(string $locale, array $messages = [])
     {
-        // TODO: Implement all() method.
+        $this->locale = $locale;
+        $this->messages = $messages;
+    }
+
+    public function all(?string $domain = null): array
+    {
+        $allMessages = [];
+
+        foreach ($this->messages as $domain => $messages) {
+            $allMessages[$domain] = ($allMessages[$domain] ?? []) + $messages;
+        }
+
+        return $allMessages;
     }
 
     public function set(string $id, string $translation, string $domain = 'messages')
     {
-        // TODO: Implement set() method.
+        $this->add([$id => $translation], $domain);
     }
 
-    public function has(string $id, string $domain = 'messages')
+    public function has(string $id, string $domain = 'messages'): bool
     {
-        // TODO: Implement has() method.
+        if (isset($this->messages[$domain][$id])) {
+            return true;
+        }
+
+        return false;
     }
 
-    public function defines(string $id, string $domain = 'messages')
+    public function defines(string $id, string $domain = 'messages'): bool
     {
-        // TODO: Implement defines() method.
+        return isset($this->messages[$domain][$id]);
     }
 
-    public function get(string $id, string $domain = 'messages')
+    public function get(string $id, string $domain = 'messages'): string
     {
-        // TODO: Implement get() method.
+        if (isset($this->messages[$domain][$id])) {
+            return $this->messages[$domain][$id];
+        }
+
+        return $id;
     }
 
     public function replace(array $messages, string $domain = 'messages')
     {
-        // TODO: Implement replace() method.
+        unset($this->messages[$domain]);
+
+        $this->add($messages, $domain);
     }
 
     public function add(array $messages, string $domain = 'messages')
     {
-        // TODO: Implement add() method.
+        foreach ($messages as $id => $message) {
+            $this->messages[$domain][$id] = $message;
+        }
     }
 
+    /**
+     * @throws LogicException
+     */
     public function addCatalogue(MessageCatalogueInterface $catalogue)
     {
-        // TODO: Implement addCatalogue() method.
+        if ($catalogue->getLocale() !== $this->locale) {
+            throw new LogicException(sprintf('Cannot add a catalogue for locale "%s" as the current locale for this catalogue is "%s".', $catalogue->getLocale(), $this->locale));
+        }
+
+        foreach ($catalogue->all() as $domain => $messages) {
+            $this->add($messages, $domain);
+        }
+
+        foreach ($catalogue->getResources() as $resource) {
+            $this->addResource($resource);
+        }
+
     }
 
-    public function addFallbackCatalogue(MessageCatalogueInterface $catalogue)
+    public function getResources(): array
     {
-        // TODO: Implement addFallbackCatalogue() method.
-    }
-
-    public function getResources()
-    {
-        // TODO: Implement getResources() method.
+        return array_values($this->resources);
     }
 
     public function addResource(ResourceInterface $resource)
     {
-        // TODO: Implement addResource() method.
+        $this->resources[$resource->__toString()] = $resource;
     }
 }

@@ -13,7 +13,7 @@ use hollisho\objectbuilder\Exceptions\UnknownPropertyException;
  * Class LocaleSwitcher
  * @package hollisho\htranslator
  */
-class LocaleSwitcher implements LocaleAwareInterface
+class LocaleManager implements LocaleAwareInterface
 {
     use LocaleConfigSetTrait;
 
