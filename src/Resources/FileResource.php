@@ -46,4 +46,5 @@ class FileResource implements ResourceInterface
     {
         return false !== ($filemtime = @filemtime($this->resource)) && $filemtime <= $timestamp;
     }
+
 }

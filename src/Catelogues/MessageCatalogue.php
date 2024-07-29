@@ -2,8 +2,8 @@
 
 namespace hollisho\htranslator\Catelogues;
 
-use hollisho\htranslator\Exceptions\LogicException;
 use hollisho\htranslator\Resources\ResourceInterface;
+use LogicException;
 
 /**
  * @author Hollis
@@ -109,7 +109,10 @@ class MessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * @throws LogicException
+     * @param MessageCatalogueInterface $catalogue
+     * @return void
+     * @author Hollis
+     * @desc 追加catalogue
      */
     public function addCatalogue(MessageCatalogueInterface $catalogue)
     {

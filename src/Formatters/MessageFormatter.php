@@ -1,7 +1,8 @@
 <?php
 namespace hollisho\htranslator\Formatters;
 
-use hollisho\htranslator\TranslatorInterface;
+use hollisho\htranslator\Catelogues\MessageCatalogue;
+use hollisho\htranslator\Catelogues\MessageCatalogueInterface;
 
 /**
  * @author Hollis
@@ -11,20 +12,19 @@ use hollisho\htranslator\TranslatorInterface;
  */
 class MessageFormatter implements FormatterInterface
 {
+    private $messageCatalogue;
 
-    private $translator;
-
-    /**
-     * @param TranslatorInterface|null $translator
-     */
-    public function __construct(?TranslatorInterface $translator)
+    public function __construct(MessageCatalogueInterface $messageCatalogue = null)
     {
-        $this->translator = $translator;
+        $this->messageCatalogue = $messageCatalogue;
     }
-
 
     public function format(string $message, string $locale, array $parameters = []): string
     {
-        return $this->translator->trans($message, $parameters, null, $locale);
+        if ($this->messageCatalogue instanceof MessageCatalogueInterface) {
+            return $this->messageCatalogue->get($message);
+        }
+
+        return strtr($message, $parameters);
     }
 }

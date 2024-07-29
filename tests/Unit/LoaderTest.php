@@ -9,6 +9,12 @@ use hollisho\htranslator\Loaders\YamlFileLoader;
 use hollisho\htranslator\Resources\FileResource;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @author Hollis
+ * @desc Loader 内容加载器测试
+ * Class LoaderTest
+ * @package hollisho\htranslator
+ */
 class LoaderTest extends TestCase
 {
     /**
@@ -21,10 +27,11 @@ class LoaderTest extends TestCase
     {
         $arrayLoader = new ArrayLoader();
         $messageCatalogue = $arrayLoader->load([
-            'id' => 1
+            'user' => [
+                'username' => 'Hollis'
+            ]
         ], 'zh-cn');
-        var_dump($arrayLoader, $messageCatalogue);
-        $this->assertTrue(true);
+        $this->assertTrue($messageCatalogue->all()['messages']['user.username'] == 'Hollis');
 
     }
 
