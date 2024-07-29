@@ -1,6 +1,6 @@
 <?php
 
-namespace hollisho\htranslator;
+namespace hollisho\htranslator\Locale;
 
 use hollisho\helpers\ArrayHelper;
 use hollisho\helpers\InvalidArgumentException;

@@ -139,4 +139,14 @@ class MessageCatalogue implements MessageCatalogueInterface
     {
         $this->resources[$resource->__toString()] = $resource;
     }
+
+    public function addFallbackCatalogue(MessageCatalogueInterface $catalogue)
+    {
+        // TODO: Implement addFallbackCatalogue() method.
+    }
+
+    public function getFallbackCatalogue()
+    {
+        // TODO: Implement getFallbackCatalogue() method.
+    }
 }

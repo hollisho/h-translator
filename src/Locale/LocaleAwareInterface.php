@@ -1,5 +1,5 @@
 <?php
-namespace hollisho\htranslator;
+namespace hollisho\htranslator\Locale;
 
 /**
  * @author Hollis

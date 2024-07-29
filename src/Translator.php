@@ -2,10 +2,19 @@
 
 namespace hollisho\htranslator;
 
+use hollisho\htranslator\Catelogues\MessageCatalogue;
+use hollisho\htranslator\Exceptions\NotFoundResourceException;
 use hollisho\htranslator\Formatters\FormatterInterface;
 use hollisho\htranslator\Formatters\MessageFormatter;
+use hollisho\htranslator\Loaders\LoaderInterface;
+use hollisho\htranslator\Locale\LocaleAwareInterface;
+use hollisho\htranslator\Locale\LocaleManager;
+use hollisho\htranslator\Resources\ResourceManager;
+use hollisho\objectbuilder\Exceptions\BuilderException;
 use hollisho\objectbuilder\Exceptions\UnknownPropertyException;
+use hollisho\htranslator\Exceptions\InvalidResourceException;
 use InvalidArgumentException;
+use RuntimeException;
 
 
 class Translator implements TranslatorInterface, LocaleAwareInterface
@@ -20,6 +29,20 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
 
     private $formatter;
 
+    /**
+     * @var LoaderInterface[]
+     */
+    private $loaders = [];
+
+    /**
+     * @var array
+     */
+    private $resources = [];
+
+    /**
+     * @var string[]
+     */
+    private $fallbackLocales = [];
 
     /**
      * @param string|null $locale
@@ -28,14 +51,14 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
      */
     public function __construct(string $locale = null, ?FormatterInterface $formatter = null)
     {
-        $this->switcher = new LocaleManager();
+        $this->localeManager = new LocaleManager();
 
         if ($locale) {
             $this->setLocale($locale);
         }
 
         if (null === $formatter) {
-            $formatter = new MessageFormatter($this);
+            $formatter = new MessageFormatter();
         }
 
         $this->formatter = $formatter;
@@ -60,6 +83,8 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
             $domain = 'messages';
         }
 
+
+        $catalogue = $this->getCatalogue();
         $locale = $catalogue->getLocale();
         while (!$catalogue->defines($id, $domain)) {
             if ($cat = $catalogue->getFallbackCatalogue()) {
@@ -94,7 +119,7 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
     public function setLocale(string $locale): void
     {
         $this->assertValidLocale($locale);
-        $this->switcher->setLocale($locale);
+        $this->localeManager->setLocale($locale);
     }
 
     /**
@@ -104,7 +129,7 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
      */
     public function getLocale(): string
     {
-        return $this->switcher->getLocale();
+        return $this->localeManager->getLocale();
     }
 
     /**
@@ -112,10 +137,15 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
      */
     public function reset(): void
     {
-        $this->switcher->reset();
+        $this->localeManager->reset();
     }
 
 
+    /**
+     * @param string|null $locale
+     * @return mixed
+     * @desc
+     */
     public function getCatalogue(?string $locale = null)
     {
         if (!$locale) {
@@ -125,7 +155,7 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
         }
 
         if (!isset($this->catalogues[$locale])) {
-            $this->loadCatalogue($locale);
+            $this->initializeCatalogue($locale);
         }
 
         return $this->catalogues[$locale];
@@ -138,6 +168,101 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
     {
         return array_values($this->catalogues);
     }
+
+    /**
+     * @param string $locale
+     * @return void
+     * @throws InvalidResourceException
+     * @throws NotFoundResourceException
+     * @desc 加载内容目录
+     */
+    public function loadCatalogue(string $locale)
+    {
+        $this->catalogues[$locale] = new MessageCatalogue($locale);
+
+        if (isset($this->resources[$locale])) {
+            /** @var ResourceManager $resource */
+            foreach ($this->resources[$locale] as $resource) {
+                if (!isset($this->loaders[$resource->format])) {
+                    if (\is_string($resource->resource)) {
+                        throw new RuntimeException(sprintf('No loader is registered for the "%s" format when loading the "%s" resource.',
+                            $resource->format, $resource->resource));
+                    }
+
+                    throw new RuntimeException(sprintf('No loader is registered for the "%s" format.', $resource->format));
+                }
+                $this->catalogues[$locale]->addCatalogue($this->loaders[$resource->format]->load($resource->resource, $locale, $resource->domain));
+            }
+        }
+
+    }
+
+
+    /**
+     * @param string $locale
+     * @return void
+     * @desc 初始化内容目录
+     */
+    protected function initializeCatalogue(string $locale)
+    {
+        $this->assertValidLocale($locale);
+
+        try {
+            $this->loadCatalogue($locale);
+        } catch (\Exception $e) {
+        }
+//        $this->loadFallbackCatalogues($locale);
+    }
+
+    /**
+     * Adds a Loader.
+     *
+     * @param string $format The name of the loader (@see addResource())
+     */
+    public function addLoader(string $format, LoaderInterface $loader)
+    {
+        $this->loaders[$format] = $loader;
+    }
+
+    /**
+     * Gets the loaders.
+     *
+     * @return LoaderInterface[]
+     */
+    protected function getLoaders(): array
+    {
+        return $this->loaders;
+    }
+
+
+    /**
+     * @throws BuilderException
+     */
+    public function addResource(string $format, $resource, string $locale, ?string $domain = null)
+    {
+        if (null === $domain) {
+            $domain = 'messages';
+        }
+
+        $this->assertValidLocale($locale);
+        $locale ?: $this->localeManager->getDefaultLocale();
+
+        $this->resources[$locale][] = ResourceManager::build([
+            'format' => $format,
+            'resource' => $resource,
+            'domain' => $domain,
+        ]);
+
+        if (\in_array($locale, $this->fallbackLocales)) {
+            $this->catalogues = [];
+        } else {
+            unset($this->catalogues[$locale]);
+        }
+
+    }
+
+
+
 }
 
 

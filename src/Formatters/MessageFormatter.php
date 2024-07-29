@@ -1,7 +1,6 @@
 <?php
 namespace hollisho\htranslator\Formatters;
 
-use hollisho\htranslator\Catelogues\MessageCatalogue;
 use hollisho\htranslator\Catelogues\MessageCatalogueInterface;
 
 /**
