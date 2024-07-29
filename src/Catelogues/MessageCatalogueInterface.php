@@ -65,9 +65,9 @@ interface MessageCatalogueInterface
      * @param string $id The message id
      * @param string $domain The domain name
      *
-     * @return string
+     * @return mixed
      */
-    public function get(string $id, string $domain = 'messages'): string;
+    public function get(string $id, string $domain = 'messages');
 
     /**
      * Sets translations for a given domain.

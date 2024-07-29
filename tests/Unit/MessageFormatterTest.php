@@ -25,6 +25,42 @@ class MessageFormatterTest extends TestCase
      * @throws Exceptions\InvalidResourceException
      * @throws Exceptions\NotFoundResourceException
      */
+    public function testCallback()
+    {
+        $phpFileLoader = new PhpFileLoader();
+        $fileResource = new FileResource(dirname(__DIR__) . "/Files/zh-cn.php");
+        $messageCatalogue = $phpFileLoader->load($fileResource, 'zh-cn');
+
+        $messageFormatter = new MessageFormatter($messageCatalogue);
+        $format = $messageFormatter->format('datetime', 'zh-cn');
+        $this->assertTrue($format == date('Y-m-d H:i:s'));
+    }
+
+    /**
+     * @return void
+     * @throws Exceptions\InvalidResourceException
+     * @throws Exceptions\NotFoundResourceException
+     * @desc 占位符测试
+     */
+    public function testPlaceholder()
+    {
+        $phpFileLoader = new PhpFileLoader();
+        $fileResource = new FileResource(dirname(__DIR__) . "/Files/zh-cn.php");
+        $messageCatalogue = $phpFileLoader->load($fileResource, 'zh-cn');
+
+        $messageFormatter = new MessageFormatter($messageCatalogue);
+        $format = $messageFormatter->format('This is %s,base on %s', 'zh-cn', [
+            '占位符',
+            'formatter'
+        ]);
+
+        $this->assertTrue($format == '这是占位符，基于formatter');
+    }
+
+    /**
+     * @throws Exceptions\InvalidResourceException
+     * @throws Exceptions\NotFoundResourceException
+     */
     public function testMessageCatalogue()
     {
         $arrayResource = new ArrayResource([

@@ -85,7 +85,7 @@ class MessageCatalogue implements MessageCatalogueInterface
         return isset($this->messages[$domain][$id]);
     }
 
-    public function get(string $id, string $domain = 'messages'): string
+    public function get(string $id, string $domain = 'messages')
     {
         if (isset($this->messages[$domain][$id])) {
             return $this->messages[$domain][$id];
