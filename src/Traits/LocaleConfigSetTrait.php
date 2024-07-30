@@ -65,13 +65,4 @@ trait LocaleConfigSetTrait
         $this->setConfigAttribute('enable_locale', $enable_locale);
     }
 
-    /**
-     * @param bool $locale_path
-     * @return void
-     * @throws UnknownPropertyException
-     */
-    public function setLocalePath(bool $locale_path)
-    {
-        $this->setConfigAttribute('locale_path', $locale_path);
-    }
 }

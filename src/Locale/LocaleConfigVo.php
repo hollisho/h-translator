@@ -32,17 +32,4 @@ class LocaleConfigVo extends HObject
      */
     protected $enable_locale = [];
 
-    /**
-     * 
-     * @desc 是否支持语言分组
-     * @var bool
-     */
-    protected $allow_group = false;
-
-
-    /**
-     * @desc 语言路径
-     * @var string
-     */
-    protected $locale_path = '';
 }
