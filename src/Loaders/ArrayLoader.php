@@ -4,6 +4,12 @@ namespace hollisho\htranslator\Loaders;
 
 use hollisho\htranslator\Catelogues\MessageCatalogue;
 
+/**
+ * @author Hollis
+ * @desc 数组类型-数据加载器
+ * Class ArrayLoader
+ * @package hollisho\htranslator\Loaders
+ */
 class ArrayLoader implements LoaderInterface
 {
 

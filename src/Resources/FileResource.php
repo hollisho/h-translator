@@ -4,6 +4,12 @@ namespace hollisho\htranslator\Resources;
 
 use InvalidArgumentException;
 
+/**
+ * @author Hollis
+ * @desc 文件数据源
+ * Class FileResource
+ * @package hollisho\htranslator\Resources
+ */
 class FileResource implements ResourceInterface
 {
 

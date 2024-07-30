@@ -54,4 +54,15 @@ class MessageCatalogueTest extends TestCase
         $messageCatalogue = $phpFileLoader->load($fileResource, 'zh-cn');
         $this->assertTrue($messageCatalogue->get('user.username') == 'Hollis');
     }
+
+    public function testDomain()
+    {
+        $messageCatalogue = new MessageCatalogue('zh-cn');
+        $messageCatalogue->add([
+            'date' => date('Y-m-d'),
+            'time' => time()
+        ], 'datetime');
+
+        $this->assertTrue($messageCatalogue->has('date', 'datetime'));
+    }
 }

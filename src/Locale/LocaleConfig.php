@@ -7,7 +7,7 @@ use hollisho\objectbuilder\HObject;
 
 /**
  * @author Hollis
- * @desc
+ * @desc 本地化配置文件
  * Class LocaleConfig
  * @package hollisho\htranslator\Objects
  */

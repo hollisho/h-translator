@@ -9,9 +9,10 @@ use hollisho\objectbuilder\Exceptions\BuilderException;
 use hollisho\objectbuilder\Exceptions\UnknownPropertyException;
 
 /**
- * @author Hollis Ho
- * Class LocaleSwitcher
- * @package hollisho\htranslator
+ * @author Hollis
+ * @desc 本地化管理器
+ * Class LocaleManager
+ * @package hollisho\htranslator\Locale
  */
 class LocaleManager implements LocaleAwareInterface
 {

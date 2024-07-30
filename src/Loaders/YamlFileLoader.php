@@ -5,6 +5,12 @@ namespace hollisho\htranslator\Loaders;
 use hollisho\htranslator\Exceptions\InvalidResourceException;
 use hollisho\htranslator\Exceptions\ParseException;
 
+/**
+ * @author Hollis
+ * @desc Yaml文件-数据加载器
+ * Class YamlFileLoader
+ * @package hollisho\htranslator\Loaders
+ */
 class YamlFileLoader extends FileLoader
 {
 

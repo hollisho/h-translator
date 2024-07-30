@@ -2,11 +2,9 @@
 
 namespace hollisho\htranslator\Loaders;
 
-use hollisho\htranslator\Exceptions\InvalidResourceException;
-
 /**
  * @author Hollis
- * @desc
+ * @desc PHP配置-数据加载器
  * Class PhpFileLoader
  * @package hollisho\htranslator\Loaders
  */

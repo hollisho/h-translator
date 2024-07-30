@@ -10,7 +10,7 @@ use hollisho\htranslator\Formatters\MessageFormatter;
 use hollisho\htranslator\Loaders\LoaderInterface;
 use hollisho\htranslator\Locale\LocaleAwareInterface;
 use hollisho\htranslator\Locale\LocaleManager;
-use hollisho\htranslator\Resources\ResourceManager;
+use hollisho\htranslator\Resources\ResourceVO;
 use hollisho\objectbuilder\Exceptions\BuilderException;
 use hollisho\objectbuilder\Exceptions\UnknownPropertyException;
 use hollisho\htranslator\Exceptions\InvalidResourceException;
@@ -85,7 +85,7 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
         }
 
         /** @var MessageCatalogueInterface $catalogue */
-        $catalogue = $this->getCatalogue();
+        $catalogue = $this->getCatalogue($locale);
         $locale = $catalogue->getLocale();
         while (!$catalogue->defines($id, $domain)) {
             if ($cat = $catalogue->getFallbackCatalogue()) {
@@ -174,7 +174,7 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
         $this->catalogues[$locale] = new MessageCatalogue($locale);
 
         if (isset($this->resources[$locale])) {
-            /** @var ResourceManager $resource */
+            /** @var ResourceVO $resource */
             foreach ($this->resources[$locale] as $resource) {
                 if (!isset($this->loaders[$resource->format])) {
                     if (\is_string($resource->resource)) {
@@ -236,7 +236,7 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
         $this->assertValidLocale($locale);
         $locale ?: $this->locale_manager->getDefaultLocale();
 
-        $this->resources[$locale][] = ResourceManager::build([
+        $this->resources[$locale][] = ResourceVO::build([
             'format' => $format,
             'resource' => $resource,
             'domain' => $domain,
@@ -250,7 +250,23 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
 
     }
 
+    private function loadFallbackCatalogues(string $locale): void
+    {
+        $current = $this->catalogues[$locale];
 
+        foreach ($this->computeFallbackLocales($locale) as $fallback) {
+            if (!isset($this->catalogues[$fallback])) {
+                $this->initializeCatalogue($fallback);
+            }
+
+            $fallbackCatalogue = new MessageCatalogue($fallback, $this->getAllMessages($this->catalogues[$fallback]));
+            foreach ($this->catalogues[$fallback]->getResources() as $resource) {
+                $fallbackCatalogue->addResource($resource);
+            }
+            $current->addFallbackCatalogue($fallbackCatalogue);
+            $current = $fallbackCatalogue;
+        }
+    }
 
 }
 

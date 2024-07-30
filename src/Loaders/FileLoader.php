@@ -7,6 +7,12 @@ use hollisho\htranslator\Exceptions\InvalidResourceException;
 use hollisho\htranslator\Exceptions\NotFoundResourceException;
 use hollisho\htranslator\Resources\FileResource;
 
+/**
+ * @author Hollis
+ * @desc 文件类型-基础数据加载器
+ * Class FileLoader
+ * @package hollisho\htranslator\Loaders
+ */
 abstract class FileLoader extends ArrayLoader
 {
     /**

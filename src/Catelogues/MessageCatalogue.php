@@ -57,8 +57,11 @@ class MessageCatalogue implements MessageCatalogueInterface
 
     public function all(?string $domain = null): array
     {
-        $allMessages = [];
+        if (null !== $domain) {
+            return $this->messages[$domain] ?? [];
+        }
 
+        $allMessages = [];
         foreach ($this->messages as $domain => $messages) {
             $allMessages[$domain] = ($allMessages[$domain] ?? []) + $messages;
         }

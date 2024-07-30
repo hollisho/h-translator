@@ -4,6 +4,12 @@ namespace hollisho\htranslator\Resources;
 
 use hollisho\helpers\Arrayable;
 
+/**
+ * @author Hollis
+ * @desc 数组-数据源
+ * Class ArrayResource
+ * @package hollisho\htranslator\Resources
+ */
 class ArrayResource implements ResourceInterface, Arrayable
 {
     /**

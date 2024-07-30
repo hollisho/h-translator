@@ -5,7 +5,7 @@ use hollisho\htranslator\Catelogues\MessageCatalogueInterface;
 
 /**
  * @author Hollis
- * @desc
+ * @desc 内容格式化类
  * Class MessageFormatter
  * @package hollisho\htranslator\Formatters
  */

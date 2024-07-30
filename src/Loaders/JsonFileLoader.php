@@ -4,6 +4,12 @@ namespace hollisho\htranslator\Loaders;
 
 use hollisho\htranslator\Exceptions\InvalidResourceException;
 
+/**
+ * @author Hollis
+ * @desc Json文件-数据加载器
+ * Class JsonFileLoader
+ * @package hollisho\htranslator\Loaders
+ */
 class JsonFileLoader extends FileLoader
 {
 
