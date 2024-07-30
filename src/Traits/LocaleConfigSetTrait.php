@@ -2,7 +2,7 @@
 
 namespace hollisho\htranslator\Traits;
 
-use hollisho\htranslator\Locale\LocaleConfig;
+use hollisho\htranslator\Locale\LocaleConfigVo;
 use hollisho\objectbuilder\Exceptions\UnknownPropertyException;
 
 /**
@@ -14,7 +14,7 @@ use hollisho\objectbuilder\Exceptions\UnknownPropertyException;
 trait LocaleConfigSetTrait
 {
     /**
-     * @var LocaleConfig
+     * @var LocaleConfigVo
      */
     private $config;
 

@@ -10,7 +10,7 @@ use hollisho\objectbuilder\HObject;
  * Class ResourceManager
  * @package hollisho\htranslator\Resources
  */
-class ResourceVO extends HObject
+class ResourceVo extends HObject
 {
     public $format;
 

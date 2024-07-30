@@ -24,12 +24,10 @@ class TranslatorTest extends TestCase
 
         $phpFileLoader = new PhpFileLoader();
         $translator->addLoader('phpFile', $phpFileLoader);
-        $translator->addResource('phpFile', dirname(__DIR__) . "/Files/zh-cn.php", 'zh-cn');
+        $translator->addResource('phpFile', dirname(__DIR__) . "/Files/zh-cn.php", 'zh_CN');
         $trans = $translator->trans("user.username");
 
-        var_dump($trans);
-
-        $this->assertTrue(true);
+        $this->assertTrue($trans == 'Hollis');
     }
 
 }

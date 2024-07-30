@@ -27,8 +27,8 @@ class LocaleManager implements LocaleAwareInterface
     {
         $config = ArrayHelper::getValue($params, 'config', []);
         $locale = ArrayHelper::getValue($params, 'locale', '');
-        /** @var LocaleConfig $localeConfig */
-        $localeConfig = LocaleConfig::build($config);
+        /** @var LocaleConfigVo $localeConfig */
+        $localeConfig = LocaleConfigVo::build($config);
         $this->config = $localeConfig;
         $this->setLocale($locale ?: $this->getDefaultLocale());
     }

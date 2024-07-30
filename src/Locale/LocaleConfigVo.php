@@ -11,13 +11,13 @@ use hollisho\objectbuilder\HObject;
  * Class LocaleConfig
  * @package hollisho\htranslator\Objects
  */
-class LocaleConfig extends HObject
+class LocaleConfigVo extends HObject
 {
     /**
      * @desc 默认语言
      * @var string
      */
-    protected $default_locale = 'zh-cn';
+    protected $default_locale = 'zh_CN';
 
     /**
      * @desc 当前语言
