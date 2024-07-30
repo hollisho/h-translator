@@ -4,7 +4,9 @@ namespace hollisho\htranslator;
 
 use hollisho\htranslator\Catelogues\MessageCatalogue;
 use hollisho\htranslator\Loaders\ArrayLoader;
+use hollisho\htranslator\Loaders\PhpFileLoader;
 use hollisho\htranslator\Resources\ArrayResource;
+use hollisho\htranslator\Resources\FileResource;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -39,5 +41,17 @@ class MessageCatalogueTest extends TestCase
         $arrayLoader = new ArrayLoader();
         $messageCatalogue = $arrayLoader->load($arrayResource->toArray(), 'zh-cn');
         $this->assertTrue($messageCatalogue->get('Hello World') == '世界 你好');
+    }
+
+    /**
+     * @throws Exceptions\InvalidResourceException
+     * @throws Exceptions\NotFoundResourceException
+     */
+    public function testPhpFileResource()
+    {
+        $fileResource = new FileResource(dirname(__DIR__) . "/Files/zh-cn.php");
+        $phpFileLoader = new PhpFileLoader();
+        $messageCatalogue = $phpFileLoader->load($fileResource, 'zh-cn');
+        $this->assertTrue($messageCatalogue->get('user.username') == 'Hollis');
     }
 }
