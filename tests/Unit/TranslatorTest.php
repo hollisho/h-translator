@@ -3,6 +3,7 @@ namespace hollisho\htranslatorTests;
 
 use hollisho\htranslator\Loaders\PhpFileLoader;
 use hollisho\htranslator\Locale\LocaleManager;
+use hollisho\htranslator\Resources\ResourceFormatVo;
 use hollisho\htranslator\Translator;
 use hollisho\objectbuilder\Exceptions\BuilderException;
 use PHPUnit\Framework\TestCase;
@@ -24,8 +25,8 @@ class TranslatorTest extends TestCase
         $translator = new Translator();
 
         $phpFileLoader = new PhpFileLoader();
-        $translator->addLoader('phpFile', $phpFileLoader);
-        $translator->addResource('phpFile', dirname(__DIR__) . "/Files/zh-cn.php", 'zh_CN');
+        $translator->addLoader(ResourceFormatVo::PHP_FILE, $phpFileLoader);
+        $translator->addResource(ResourceFormatVo::PHP_FILE, dirname(__DIR__) . "/Files/zh-cn.php", 'zh_CN');
         var_dump($translator->trans("moment"));
         $this->assertTrue($translator->trans("user.username") == 'Hollis');
     }
