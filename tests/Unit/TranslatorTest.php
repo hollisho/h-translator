@@ -27,8 +27,17 @@ class TranslatorTest extends TestCase
         $phpFileLoader = new PhpFileLoader();
         $translator->addLoader(ResourceFormatVo::PHP_FILE, $phpFileLoader);
         $translator->addResource(ResourceFormatVo::PHP_FILE, dirname(__DIR__) . "/Files/zh-cn.php", 'zh_CN');
-        var_dump($translator->trans("moment"));
         $this->assertTrue($translator->trans("user.username") == 'Hollis');
+    }
+
+    public function testTranslatorMoment()
+    {
+        $translator = new Translator();
+
+        $phpFileLoader = new PhpFileLoader();
+        $translator->addLoader(ResourceFormatVo::PHP_FILE, $phpFileLoader);
+        $translator->addResource(ResourceFormatVo::PHP_FILE, dirname(__DIR__) . "/Files/zh-cn.php", 'zh_CN');
+        $this->assertIsString($translator->trans("moment"));
     }
 
 }
