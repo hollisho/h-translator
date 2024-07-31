@@ -26,9 +26,8 @@ class TranslatorTest extends TestCase
         $phpFileLoader = new PhpFileLoader();
         $translator->addLoader('phpFile', $phpFileLoader);
         $translator->addResource('phpFile', dirname(__DIR__) . "/Files/zh-cn.php", 'zh_CN');
-        $trans = $translator->trans("user.username");
-
-        $this->assertTrue($trans == 'Hollis');
+        var_dump($translator->trans("moment"));
+        $this->assertTrue($translator->trans("user.username") == 'Hollis');
     }
 
 }
