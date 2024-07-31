@@ -24,7 +24,7 @@
   },
   "require": {
     "php": ">=7.2",
-    "hollisho/object-builder": "^0.4",
+    "hollisho/object-builder": "^1.0",
     "fightbulc/moment": "^1.34",
     "hollisho/php-helpers": "^1.0"
   },
