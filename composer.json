@@ -30,8 +30,18 @@
   },
   "autoload": {
     "psr-4": {
-      "hollisho\\htranslator\\": "src",
-      "hollisho\\htranslatorTests\\": "tests"
-    }
+      "hollisho\\htranslator\\": "src"
+    },
+    "exclude-from-classmap": [
+      "/tests/"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "hollisho\\htranslatorTests\\": "tests/"
+    },
+    "exclude-from-classmap": [
+      "/tests/"
+    ]
   }
 }
