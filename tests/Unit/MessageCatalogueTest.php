@@ -1,8 +1,10 @@
 <?php
 
-namespace hollisho\htranslator;
+namespace hollisho\htranslatorTests;
 
 use hollisho\htranslator\Catelogues\MessageCatalogue;
+use hollisho\htranslator\Exceptions\InvalidResourceException;
+use hollisho\htranslator\Exceptions\NotFoundResourceException;
 use hollisho\htranslator\Loaders\ArrayLoader;
 use hollisho\htranslator\Loaders\PhpFileLoader;
 use hollisho\htranslator\Resources\ArrayResource;
@@ -30,8 +32,10 @@ class MessageCatalogueTest extends TestCase
     }
 
     /**
-     * @throws Exceptions\InvalidResourceException
-     * @throws Exceptions\NotFoundResourceException
+     * @return void
+     * @throws InvalidResourceException
+     * @throws NotFoundResourceException
+     * @desc
      */
     public function testArrayResource()
     {
@@ -44,8 +48,10 @@ class MessageCatalogueTest extends TestCase
     }
 
     /**
-     * @throws Exceptions\InvalidResourceException
-     * @throws Exceptions\NotFoundResourceException
+     * @return void
+     * @throws InvalidResourceException
+     * @throws NotFoundResourceException
+     * @desc
      */
     public function testPhpFileResource()
     {

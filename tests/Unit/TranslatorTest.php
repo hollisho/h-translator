@@ -1,8 +1,9 @@
 <?php
-namespace hollisho\htranslator;
+namespace hollisho\htranslatorTests;
 
 use hollisho\htranslator\Loaders\PhpFileLoader;
 use hollisho\htranslator\Locale\LocaleManager;
+use hollisho\htranslator\Translator;
 use hollisho\objectbuilder\Exceptions\BuilderException;
 use PHPUnit\Framework\TestCase;
 

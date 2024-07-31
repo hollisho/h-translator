@@ -1,7 +1,9 @@
 <?php
 
-namespace hollisho\htranslator;
+namespace hollisho\htranslatorTests;
 
+use hollisho\htranslator\Exceptions\InvalidResourceException;
+use hollisho\htranslator\Exceptions\NotFoundResourceException;
 use hollisho\htranslator\Formatters\MessageFormatter;
 use hollisho\htranslator\Loaders\ArrayLoader;
 use hollisho\htranslator\Loaders\PhpFileLoader;
@@ -22,8 +24,10 @@ class MessageFormatterTest extends TestCase
     }
 
     /**
-     * @throws Exceptions\InvalidResourceException
-     * @throws Exceptions\NotFoundResourceException
+     * @return void
+     * @throws InvalidResourceException
+     * @throws NotFoundResourceException
+     * @desc
      */
     public function testCallback()
     {
@@ -38,8 +42,8 @@ class MessageFormatterTest extends TestCase
 
     /**
      * @return void
-     * @throws Exceptions\InvalidResourceException
-     * @throws Exceptions\NotFoundResourceException
+     * @throws InvalidResourceException
+     * @throws NotFoundResourceException
      * @desc 占位符测试
      */
     public function testPlaceholder()
@@ -58,8 +62,10 @@ class MessageFormatterTest extends TestCase
     }
 
     /**
-     * @throws Exceptions\InvalidResourceException
-     * @throws Exceptions\NotFoundResourceException
+     * @return void
+     * @throws InvalidResourceException
+     * @throws NotFoundResourceException
+     * @desc
      */
     public function testMessageCatalogue()
     {

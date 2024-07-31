@@ -1,6 +1,6 @@
 <?php
 
-namespace hollisho\htranslator;
+namespace hollisho\htranslatorTests;
 
 use Moment\CustomFormats\MomentJs;
 use PHPUnit\Framework\TestCase;

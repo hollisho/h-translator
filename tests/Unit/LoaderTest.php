@@ -1,7 +1,9 @@
 <?php
 
-namespace hollisho\htranslator;
+namespace hollisho\htranslatorTests;
 
+use hollisho\htranslator\Exceptions\InvalidResourceException;
+use hollisho\htranslator\Exceptions\NotFoundResourceException;
 use hollisho\htranslator\Loaders\ArrayLoader;
 use hollisho\htranslator\Loaders\JsonFileLoader;
 use hollisho\htranslator\Loaders\PhpFileLoader;
@@ -19,8 +21,8 @@ class LoaderTest extends TestCase
 {
     /**
      * @return void
-     * @throws Exceptions\InvalidResourceException
-     * @throws Exceptions\NotFoundResourceException
+     * @throws InvalidResourceException
+     * @throws NotFoundResourceException
      * @desc 数组测试
      */
     public function testArray()
@@ -37,8 +39,8 @@ class LoaderTest extends TestCase
 
     /**
      * @return void
-     * @throws Exceptions\InvalidResourceException
-     * @throws Exceptions\NotFoundResourceException
+     * @throws InvalidResourceException
+     * @throws NotFoundResourceException
      * @desc Yaml文件测试
      */
     public function testYaml()
@@ -51,8 +53,8 @@ class LoaderTest extends TestCase
 
     /**
      * @return void
-     * @throws Exceptions\InvalidResourceException
-     * @throws Exceptions\NotFoundResourceException
+     * @throws InvalidResourceException
+     * @throws NotFoundResourceException
      * @desc json文件测试
      */
     public function testJson()
@@ -65,8 +67,8 @@ class LoaderTest extends TestCase
 
     /**
      * @return void
-     * @throws Exceptions\InvalidResourceException
-     * @throws Exceptions\NotFoundResourceException
+     * @throws InvalidResourceException
+     * @throws NotFoundResourceException
      * @desc 测试php文件
      */
     public function testPhp()

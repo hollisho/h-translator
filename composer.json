@@ -31,7 +31,7 @@
   "autoload": {
     "psr-4": {
       "hollisho\\htranslator\\": "src",
-      "hollisho\\htranslator\\tests\\": "tests"
+      "hollisho\\htranslatorTests\\": "tests"
     }
   }
 }
