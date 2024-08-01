@@ -2,7 +2,6 @@
 
 namespace hollisho\htranslator;
 
-use hollisho\helpers\ArrayHelper;
 use hollisho\htranslator\Locale\LocaleAwareInterface;
 use hollisho\htranslator\Locale\LocaleManager;
 use hollisho\htranslator\Locale\LocaleVo;
