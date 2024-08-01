@@ -2,6 +2,12 @@
 
 namespace hollisho\htranslator\Locale;
 
+/**
+ * @author Hollis
+ * @desc 定义支持的语言
+ * Class LocaleVo
+ * @package hollisho\htranslator\Locale
+ */
 class LocaleVo
 {
     const AR_TN = 'ar_TN'; //Arabic (Tunisia)
@@ -77,7 +83,7 @@ class LocaleVo
         ];
     }
 
-    public static function getItems()
+    public static function getItems(): array
     {
         $items = [];
         foreach (self::values() as $value) {
@@ -86,7 +92,7 @@ class LocaleVo
         return $items;
     }
 
-    public static function assertValidLocale($locale)
+    public static function assertValidLocale($locale): bool
     {
         return in_array($locale, self::values());
     }

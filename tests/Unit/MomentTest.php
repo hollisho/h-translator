@@ -2,11 +2,11 @@
 
 namespace hollisho\htranslatorTests;
 
-use hollisho\htranslator\Exceptions\InvalidResourceException;
-use hollisho\htranslator\Exceptions\NotFoundResourceException;
 use hollisho\htranslator\Locale\LocaleManager;
+use hollisho\htranslator\Locale\LocaleVo;
 use hollisho\htranslator\MomentTranslator;
 use Moment\CustomFormats\MomentJs;
+use Moment\MomentException;
 use PHPUnit\Framework\TestCase;
 
 class MomentTest extends TestCase
@@ -41,12 +41,12 @@ class MomentTest extends TestCase
     }
 
     /**
-     * @throws \Moment\MomentException
+     * @throws MomentException
      */
     public function test04()
     {
         $localeManager = new LocaleManager();
-        $localeManager->setLocale('en_GB');
+        $localeManager->setLocale(LocaleVo::EN_US);
         $momentTranslator = new MomentTranslator($localeManager);
 //        $momentTranslator = new MomentTranslator();
         var_dump($momentTranslator->getMoment()->calendar());
