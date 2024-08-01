@@ -1,6 +1,7 @@
 <?php
 namespace hollisho\htranslatorTests;
 
+use hollisho\htranslator\Extensions\LocaleDetectExtension;
 use hollisho\htranslator\Loaders\PhpFileLoader;
 use hollisho\htranslator\Locale\LocaleManager;
 use hollisho\htranslator\Resources\ResourceFormatVo;
@@ -30,6 +31,9 @@ class TranslatorTest extends TestCase
         $this->assertTrue($translator->trans("user.username") == 'Hollis');
     }
 
+    /**
+     * @throws BuilderException
+     */
     public function testTranslatorMoment()
     {
         $translator = new Translator();
@@ -38,6 +42,18 @@ class TranslatorTest extends TestCase
         $translator->addLoader(ResourceFormatVo::PHP_FILE, $phpFileLoader);
         $translator->addResource(ResourceFormatVo::PHP_FILE, dirname(__DIR__) . "/Files/zh-cn.php", 'zh_CN');
         $this->assertIsString($translator->trans("moment"));
+    }
+
+    public function testTranslatorConfig()
+    {
+        $localeManager = new LocaleManager();
+        $localeManager->auto_detect = false;
+        $localeManager->auto_detect_var = 'lang';
+        $localeManager->locale = 'zh_TW';
+        $translator = new Translator($localeManager);
+
+        var_dump($translator->getLocale());
+
     }
 
 }

@@ -2,48 +2,52 @@
 
 namespace hollisho\htranslator\Locale;
 
-use hollisho\helpers\ArrayHelper;
-use hollisho\helpers\InvalidArgumentException;
-use hollisho\htranslator\Traits\LocaleConfigSetTrait;
 use hollisho\objectbuilder\Exceptions\BuilderException;
-use hollisho\objectbuilder\Exceptions\UnknownPropertyException;
 
 /**
  * @author Hollis
  * @desc 本地化管理器
  * Class LocaleManager
  * @package hollisho\htranslator\Locale
+ * @property $timezone
+ * @property $default_locale
+ * @property $locale
+ * @property $enable_locale
+ * @property $auto_detect
+ * @property $auto_detect_var
  */
 class LocaleManager implements LocaleAwareInterface
 {
-    use LocaleConfigSetTrait;
+    /**
+     * @var LocaleConfigVo
+     */
+    protected $config;
 
     /**
-     * @param array $params
-     * @throws BuilderException|UnknownPropertyException
-     * @throws InvalidArgumentException
+     * @param LocaleConfigVo|null $config
+     * @throws BuilderException
      */
-    public function __construct(array $params = [])
+    public function __construct(?LocaleConfigVo $config = null)
     {
-        $config = ArrayHelper::getValue($params, 'config', []);
-        $locale = ArrayHelper::getValue($params, 'locale', '');
-        /** @var LocaleConfigVo $localeConfig */
-        $localeConfig = LocaleConfigVo::build($config);
-        $this->config = $localeConfig;
-        $this->setLocale($locale ?: $this->getDefaultLocale());
+        if ($config === null) {
+            $config = LocaleConfigVo::build();
+        }
+
+        $this->config = $config;
     }
 
     /**
-     * @throws UnknownPropertyException
+     * @param string $locale
+     * @return void
      */
     public function setLocale(string $locale): void
     {
-        $this->setConfigAttribute('locale', $locale);
+        $this->config->setAttribute('locale', $locale);
     }
 
     public function getLocale(): string
     {
-        return $this->config->getAttribute('locale');
+        return $this->config->getAttribute('locale') ?: $this->getDefaultLocale();
     }
 
     public function getDefaultLocale(): string
@@ -52,10 +56,33 @@ class LocaleManager implements LocaleAwareInterface
     }
 
     /**
-     * @throws UnknownPropertyException
+     * @return void
+     * @desc 重置默认语言
      */
     public function reset(): void
     {
         $this->setLocale($this->getDefaultLocale());
     }
+
+    /**
+     * @param string $attribute
+     * @param $value
+     * @return void
+     * @desc 设置属性
+     */
+    public function __set(string $attribute, $value)
+    {
+        $this->config->setAttribute($attribute, $value);
+    }
+
+    /**
+     * @param string $attribute
+     * @return mixed|null
+     * @desc 获取属性
+     */
+    public function __get(string $attribute)
+    {
+        return $this->config->getAttribute($attribute);
+    }
+
 }

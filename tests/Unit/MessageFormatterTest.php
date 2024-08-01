@@ -16,11 +16,13 @@ class MessageFormatterTest extends TestCase
     {
         $time = date('Y-m-d H:i:s');
         $messageFormatter = new MessageFormatter();
-        $format = $messageFormatter->format(function () use ($time) {
-            return $time;
-        }, 'zh-cn');
+        $format = $messageFormatter->format(function ($my_var) use ($time) {
+            return $time . '-' .$my_var;
+        }, 'zh-cn', [
+            'my_var' => 'Ho'
+        ]);
 
-        $this->assertTrue($format == $time);
+        $this->assertTrue($format == $time . '-Ho');
     }
 
     /**

@@ -12,7 +12,6 @@ use hollisho\htranslator\Locale\LocaleAwareInterface;
 use hollisho\htranslator\Locale\LocaleManager;
 use hollisho\htranslator\Resources\ResourceVo;
 use hollisho\objectbuilder\Exceptions\BuilderException;
-use hollisho\objectbuilder\Exceptions\UnknownPropertyException;
 use hollisho\htranslator\Exceptions\InvalidResourceException;
 use InvalidArgumentException;
 use RuntimeException;
@@ -46,17 +45,16 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
     private $fallback_locales = [];
 
     /**
-     * @param string|null $locale
+     * @param LocaleManager|null $locale_manager
      * @param FormatterInterface|null $formatter
-     * @throws UnknownPropertyException
      */
-    public function __construct(string $locale = null, ?FormatterInterface $formatter = null)
+    public function __construct(?LocaleManager $locale_manager = null, ?FormatterInterface $formatter = null)
     {
-        $this->locale_manager = new LocaleManager();
-
-        if ($locale) {
-            $this->setLocale($locale);
+        if (null === $locale_manager) {
+            $locale_manager = new LocaleManager();
         }
+
+        $this->locale_manager = $locale_manager;
 
         if (null === $formatter) {
             $formatter = new MessageFormatter();
@@ -113,7 +111,6 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
 
     /**
      * @param string $locale
-     * @throws UnknownPropertyException
      * @author Hollis
      * @desc
      */
@@ -134,7 +131,7 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
     }
 
     /**
-     * @throws UnknownPropertyException
+     * @return void
      */
     public function reset(): void
     {
@@ -219,21 +216,21 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
     /**
      * @param string $format
      * @param $resource
-     * @param string $locale
+     * @param string|null $locale
      * @param string|null $domain
      * @return void
      * @throws BuilderException
      * @author Hollis
      * @desc
      */
-    public function addResource(string $format, $resource, string $locale, ?string $domain = null)
+    public function addResource(string $format, $resource, ?string $locale = null, ?string $domain = null)
     {
         if (null === $domain) {
             $domain = 'messages';
         }
 
-        $this->assertValidLocale($locale);
         $locale ?: $this->locale_manager->getDefaultLocale();
+        $this->assertValidLocale($locale);
 
         $this->resources[$locale][] = ResourceVo::build([
             'format' => $format,
