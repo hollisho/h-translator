@@ -35,9 +35,16 @@ class MomentTest extends TestCase
     {
         $momentTranslator = new MomentTranslator();
         $momentTranslator->setDateTime('2022-01-10 10:00:00');
-        var_dump($momentTranslator->format());
-
-        var_dump($momentTranslator->trans('llll'));
+        var_dump($momentTranslator->format('LT'));
+        var_dump($momentTranslator->format('LTS'));
+        var_dump($momentTranslator->format('L'));
+        var_dump($momentTranslator->format('l'));
+        var_dump($momentTranslator->format('LL'));
+        var_dump($momentTranslator->format('ll'));
+        var_dump($momentTranslator->format('LLL'));
+        var_dump($momentTranslator->format('lll'));
+        var_dump($momentTranslator->format('LLLL'));
+        var_dump($momentTranslator->format('llll'));
     }
 
     /**

@@ -122,17 +122,9 @@ class MomentTranslator implements LocaleAwareInterface
     /**
      * @throws MomentException
      */
-    public function format($format = null, $formatsInterface = null): string
+    public function format($format = null): string
     {
-        return $this->moment->format($format, $formatsInterface);
-    }
-
-    /**
-     * @throws MomentException
-     */
-    public function trans($format = null): string
-    {
-        return $this->format($format, new MomentJs());
+        return $this->moment->format($format, new MomentJs());
     }
 
 }
