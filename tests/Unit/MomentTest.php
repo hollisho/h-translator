@@ -1,6 +1,6 @@
 <?php
 
-namespace hollisho\htranslatorTests;
+namespace hollisho\htranslatorTests\Unit;
 
 use hollisho\htranslator\Locale\LocaleManager;
 use hollisho\htranslator\Locale\LocaleVo;

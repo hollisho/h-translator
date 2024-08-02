@@ -1,7 +1,6 @@
 <?php
-namespace hollisho\htranslatorTests;
+namespace hollisho\htranslatorTests\Unit;
 
-use hollisho\htranslator\Extensions\LocaleDetectExtension;
 use hollisho\htranslator\Loaders\PhpFileLoader;
 use hollisho\htranslator\Locale\LocaleManager;
 use hollisho\htranslator\Resources\ResourceFormatVo;

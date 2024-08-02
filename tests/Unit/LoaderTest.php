@@ -1,6 +1,6 @@
 <?php
 
-namespace hollisho\htranslatorTests;
+namespace hollisho\htranslatorTests\Unit;
 
 use hollisho\htranslator\Exceptions\InvalidResourceException;
 use hollisho\htranslator\Exceptions\NotFoundResourceException;
