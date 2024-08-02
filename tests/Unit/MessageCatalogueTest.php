@@ -43,7 +43,7 @@ class MessageCatalogueTest extends TestCase
             'Hello World' => '世界 你好'
         ]);
         $arrayLoader = new ArrayLoader();
-        $messageCatalogue = $arrayLoader->load($arrayResource->toArray(), 'zh-cn');
+        $messageCatalogue = $arrayLoader->load($arrayResource->__toArray(), 'zh-cn');
         $this->assertTrue($messageCatalogue->get('Hello World') == '世界 你好');
     }
 

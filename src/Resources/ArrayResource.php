@@ -10,7 +10,7 @@ use hollisho\helpers\Arrayable;
  * Class ArrayResource
  * @package hollisho\htranslator\Resources
  */
-class ArrayResource implements ResourceInterface, Arrayable
+class ArrayResource implements ResourceInterface
 {
     /**
      * @var string|false
@@ -38,7 +38,7 @@ class ArrayResource implements ResourceInterface, Arrayable
         // TODO: Implement extraFields() method.
     }
 
-    public function toArray(array $fields = [], array $expand = [], $recursive = true)
+    public function __toArray(array $fields = [], array $expand = [], $recursive = true)
     {
         return $this->resource;
     }
