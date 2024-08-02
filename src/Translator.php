@@ -65,6 +65,20 @@ class Translator implements TranslatorInterface, LocaleAwareInterface
 
     /**
      * @param string|null $id
+     * @param string|null $domain
+     * @param string|null $locale
+     * @return bool
+     * @desc
+     */
+    public function has(?string $id, ?string $domain = null, ?string $locale = null): bool
+    {
+        /** @var MessageCatalogueInterface $catalogue */
+        $catalogue = $this->getCatalogue($locale);
+        return $catalogue->has($id, $domain);
+    }
+
+    /**
+     * @param string|null $id
      * @param array $parameters
      * @param string|null $domain
      * @param string|null $locale
