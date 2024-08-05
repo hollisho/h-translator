@@ -17,4 +17,6 @@ class ResourceFormatVo extends HObject
     const PHP_FILE = 'php_file';
 
     const YAML_FILE = 'yaml_file';
+
+    const MO_FILE = 'mo_file';
 }
