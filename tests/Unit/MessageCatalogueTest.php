@@ -6,6 +6,7 @@ use hollisho\htranslator\Catelogues\MessageCatalogue;
 use hollisho\htranslator\Exceptions\InvalidResourceException;
 use hollisho\htranslator\Exceptions\NotFoundResourceException;
 use hollisho\htranslator\Loaders\ArrayLoader;
+use hollisho\htranslator\Loaders\MoFileLoader;
 use hollisho\htranslator\Loaders\PhpFileLoader;
 use hollisho\htranslator\Resources\ArrayResource;
 use hollisho\htranslator\Resources\FileResource;
@@ -59,6 +60,14 @@ class MessageCatalogueTest extends TestCase
         $phpFileLoader = new PhpFileLoader();
         $messageCatalogue = $phpFileLoader->load($fileResource, 'zh-cn');
         $this->assertTrue($messageCatalogue->get('user.username') == 'Hollis');
+    }
+
+    public function testMoFIleResource()
+    {
+        $fileResource = new FileResource(dirname(__DIR__) . "/Files/zh-cn.mo");
+        $moFileLoader = new MoFileLoader();
+        $messageCatalogue = $moFileLoader->load($fileResource, 'zh-cn');
+        var_dump($messageCatalogue);
     }
 
     public function testDomain()
