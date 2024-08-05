@@ -62,7 +62,7 @@ class MessageCatalogueTest extends TestCase
         $this->assertTrue($messageCatalogue->get('user.username') == 'Hollis');
     }
 
-    public function testMoFIleResource()
+    public function testMoFileResource()
     {
         $fileResource = new FileResource(dirname(__DIR__) . "/Files/zh-cn.mo");
         $moFileLoader = new MoFileLoader();
