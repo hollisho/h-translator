@@ -67,7 +67,7 @@ class MessageCatalogueTest extends TestCase
         $fileResource = new FileResource(dirname(__DIR__) . "/Files/zh-cn.mo");
         $moFileLoader = new MoFileLoader();
         $messageCatalogue = $moFileLoader->load($fileResource, 'zh-cn');
-        var_dump($messageCatalogue);
+        $this->assertTrue($messageCatalogue->get('layout_name') == '布局文件');
     }
 
     public function testDomain()
